@@ -8,7 +8,7 @@
     <ApplicationIcon>Assets\otter.ico</ApplicationIcon>
     <AssemblyName>OtterDesktop.App</AssemblyName>
     <RootNamespace>OtterDesktop</RootNamespace>
-    <Version>1.14.0</Version>
+    <Version>1.14.1</Version>
     <Authors>OpenAI Codex</Authors>
     <Product>Otter Desktop Companion</Product>
     <Description>A lightweight animated desktop otter for Windows.</Description>

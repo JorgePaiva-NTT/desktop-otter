@@ -2,7 +2,7 @@
 
 A small offline Windows desktop companion built from the Otter v2 sprite sheet.
 
-Version 1.14 adds persistent animation-speed control from 50% to 200%. Frame playback speed and active interaction duration update together; movement speed is unchanged. The six speed presets are available from the right-click menu. It retains the illustrated golden Zzz cluster in the curled sleeping loop, the guided animation rules, corrected idle frame registration, and repaired running-left row. Ball and snack play, screen-sharing privacy, and the soft ground shadow remain available.
+Version 1.14.1 adds random click gestures and scales the wave animation consistently. Version 1.14 introduced persistent animation-speed control from 50% to 200%. Frame playback speed and active interaction duration update together; movement speed is unchanged. The six speed presets are available from the right-click menu. It retains the illustrated golden Zzz cluster in the curled sleeping loop, the guided animation rules, corrected idle frame registration, and repaired running-left row. Ball and snack play, screen-sharing privacy, and the soft ground shadow remain available.
 
 ## Controls
 
@@ -55,4 +55,4 @@ python Tools/create_sleep_frames.py
 
 The generator appends eight 192x208 frames at row 11, regenerates each running-left cell from its clean right-running counterpart, and writes a contact sheet to `obj/sleeping-preview.png`. Run it after normalizing a source atlas if regenerating all assets.
 
-To publish a downloadable release, update the project version and push a matching tag such as `v1.14.0`. GitHub Actions creates a self-contained Windows x64 ZIP and SHA-256 checksum on the Releases page.
+To publish a downloadable release, update the project version and push a matching `v*` tag. GitHub Actions creates a self-contained Windows x64 ZIP and SHA-256 checksum on the Releases page.

@@ -1140,7 +1140,7 @@ public partial class MainWindow : Window
     private void About_Click(object sender, RoutedEventArgs e)
     {
         MessageBox.Show(
-            "Otter Desktop 1.14\n\nAn offline work companion that stays put until you interact. Control animation playback from 50% to 200% in the right-click menu. Typing holds a looking-down pose. Meetings, presentations, and five minutes of inactivity trigger breathing sleep. Click to wake and wave; dragging preserves sleep or shows running while awake. Manual meeting mode resets on restart. Screen-capture protection keeps Otter and its accessories out of supported screen shares.",
+            "Otter Desktop 1.14.1\n\nAn offline work companion that stays put until you interact. Click to wake it with a random wave, jump, wait, or review gesture. Control animation playback from 50% to 200% in the right-click menu. Typing holds a looking-down pose. Meetings, presentations, and five minutes of inactivity trigger breathing sleep. Dragging preserves sleep or shows running while awake. Manual meeting mode resets on restart. Screen-capture protection keeps Otter and its accessories out of supported screen shares.",
             "About Otter",
             MessageBoxButton.OK,
             MessageBoxImage.Information);
