@@ -32,6 +32,8 @@ Meeting and fullscreen modes show Otter curled up asleep with gentle breathing b
 
 The portable `OtterDesktop.exe` includes the Windows .NET runtime, so it does not require an installer or administrator access. Settings are stored in `%LOCALAPPDATA%\OtterDesktop`.
 
+Download the latest `OtterDesktop-windows-x64.zip` from the [GitHub Releases page](https://github.com/JorgePaiva-NTT/desktop-otter/releases/latest). Extract the ZIP and run `OtterDesktop.exe`.
+
 Some managed work computers block unsigned applications. If Windows SmartScreen appears, your organization's policy determines whether you can run the app. The app does not attempt to bypass those policies.
 
 ## Build and verify
@@ -53,4 +55,4 @@ python Tools/create_sleep_frames.py
 
 The generator appends eight 192x208 frames at row 11, regenerates each running-left cell from its clean right-running counterpart, and writes a contact sheet to `obj/sleeping-preview.png`. Run it after normalizing a source atlas if regenerating all assets.
 
-The portable v1.14 distribution is in `package/OtterDesktop-v1.14`; extract the complete archive and run `OtterDesktop.exe`, keeping the application files and bundled `runtime` folder together.
+To publish a downloadable release, update the project version and push a matching tag such as `v1.14.0`. GitHub Actions creates a self-contained Windows x64 ZIP and SHA-256 checksum on the Releases page.

@@ -1,0 +1,40 @@
+name: Windows release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Publish self-contained executable
+        run: dotnet publish OtterDesktop.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:AssemblyName=OtterDesktop --output artifacts/publish
+
+      - name: Create download archive and checksum
+        shell: pwsh
+        run: |
+          Copy-Item README.md artifacts/publish/README.txt
+          Compress-Archive -Path artifacts/publish/* -DestinationPath artifacts/OtterDesktop-windows-x64.zip -CompressionLevel Optimal
+          $hash = (Get-FileHash artifacts/OtterDesktop-windows-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  OtterDesktop-windows-x64.zip" | Set-Content artifacts/SHA256SUMS.txt -Encoding ascii
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts/OtterDesktop-windows-x64.zip
+            artifacts/SHA256SUMS.txt
