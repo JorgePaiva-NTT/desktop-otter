@@ -22,6 +22,7 @@ $settingsDirectory = Join-Path ([IO.Path]::GetTempPath()) ('OtterDesktop.Smoke.'
 $flags = [Reflection.BindingFlags]'Instance,NonPublic'
 $window = $null
 $script:checkCount = 0
+$clickAnimations = @('waving', 'jumping', 'waiting', 'review')
 
 function Get-Field([object]$Target, [string]$Name) {
     $Target.GetType().GetField($Name, $flags).GetValue($Target)
@@ -110,6 +111,19 @@ try {
     Assert-CaptureExcluded $window 'Otter'
 
     Assert-Companion ($settings.AnimationSpeed -eq 1.0) 'Animation speed defaults to normal'
+    $clickRandom = [Random]::new(42)
+    $randomClickAnimations = for ($choice = 0; $choice -lt 12; $choice++) {
+        Invoke-Companion 'SelectRandomClickAnimation' @($clickRandom)
+    }
+    Assert-Companion (($randomClickAnimations | Where-Object { $_ -notin $clickAnimations }).Count -eq 0) 'Random clicks use only the available one-shot gestures'
+    Assert-Companion (($randomClickAnimations | Sort-Object -Unique).Count -gt 1) 'Random clicks can select different gestures'
+    $null = Invoke-Companion 'SetAnimation' @('waving')
+    $petImage = $window.GetType().GetField('PetImage', $flags).GetValue($window)
+    $waveTransform = $petImage.RenderTransform
+    Assert-Companion ($waveTransform -is [Windows.Media.ScaleTransform]) 'Waving frames use a scale transform'
+    Assert-Companion ([Math]::Abs($waveTransform.ScaleY - 0.94) -lt 0.001) 'Waving frames are scaled down'
+    Assert-Companion ($petImage.RenderTransformOrigin.Y -eq 1) 'Waving scale is anchored at the feet'
+    $null = Invoke-Companion 'SetAnimation' @('idle')
     $normalDuration = Invoke-Companion 'AnimationDuration' @('waving')
     Assert-Companion ($normalDuration -eq 700) 'Normal speed preserves the base animation duration'
     $null = Invoke-Companion 'SetAnimation' @('idle')
@@ -226,7 +240,7 @@ try {
     Assert-Companion ((Get-Field $window '_idleSleeping') -and (Get-Field $window '_currentAnimation') -eq 'sleeping') 'Sleeping continues after releasing a drag'
     $null = Invoke-Companion 'BeginPetDrag' @($dragStart)
     $null = Invoke-Companion 'FinishDrag'
-    Assert-Companion (-not (Get-Field $window '_idleSleeping') -and (Get-Field $window '_currentAnimation') -eq 'waving') 'Clicking a sleeping otter wakes it with a small wave'
+    Assert-Companion (-not (Get-Field $window '_idleSleeping') -and ($clickAnimations -contains (Get-Field $window '_currentAnimation'))) 'Clicking a sleeping otter wakes it with a random gesture'
 
     $dragStart = [Windows.Point]::new($window.Left + 50, $window.Top + 50)
     $null = Invoke-Companion 'BeginPetDrag' @($dragStart)
@@ -256,7 +270,7 @@ try {
     Assert-Companion ((Get-Field $window '_idleSleeping') -and (Get-Field $window '_currentAnimation') -eq 'sleeping') 'Dragging does not clear inactivity sleep'
     $null = Invoke-Companion 'BeginPetDrag' @($dragStart)
     $null = Invoke-Companion 'FinishDrag'
-    Assert-Companion (-not (Get-Field $window '_idleSleeping') -and (Get-Field $window '_currentAnimation') -eq 'waving') 'A click clears inactivity sleep and waves'
+    Assert-Companion (-not (Get-Field $window '_idleSleeping') -and ($clickAnimations -contains (Get-Field $window '_currentAnimation'))) 'A click clears inactivity sleep with a random gesture'
 
     $null = Invoke-Companion 'CancelTransientPlay'
     $null = Invoke-Companion 'SetAnimation' @('idle')

@@ -7,7 +7,7 @@ Version 1.14 adds persistent animation-speed control from 50% to 200%. Frame pla
 ## Controls
 
 - Left-drag Otter to reposition it. An awake Otter runs in the drag direction; a sleeping Otter stays asleep during and after dragging.
-- Click Otter to wake it and give a small wave. If a meeting or fullscreen context remains active, Otter returns to sleep after the wave.
+- Click Otter to wake it and play a random wave, jump, wait, or review gesture. If a meeting or fullscreen context remains active, Otter returns to sleep after the gesture.
 - Right-click Otter for actions, size, pause, always-on-top, startup, reset, and exit.
 - Choose **Animation speed** from the right-click menu to set frame playback from 50% to 200%; the selection is saved between launches.
 - Use **Play together** to toss a ball or give Otter a fish snack.

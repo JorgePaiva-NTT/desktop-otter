@@ -15,11 +15,13 @@ public partial class MainWindow : Window
 {
     private const int CellWidth = 192;
     private const int CellHeight = 208;
+    private const double WavingScale = 0.94;
     private const long InactivityTimeoutMilliseconds = 5 * 60 * 1000;
     private const string StartupRegistryPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
     private const string StartupValueName = "OtterDesktop";
 
     private readonly record struct Animation(int Row, int Frames, int[] Durations, bool Loop = false);
+    private static readonly string[] ClickAnimations = ["waving", "jumping", "waiting", "review"];
 
     private readonly Dictionary<string, Animation> _animations = new()
     {
@@ -162,6 +164,9 @@ public partial class MainWindow : Window
         _quietPoseVisible = false;
         _frameIndex = 0;
         _lookResumeAt = _clock.ElapsedMilliseconds + 650;
+        PetImage.RenderTransform = name == "waving"
+            ? new System.Windows.Media.ScaleTransform(WavingScale, WavingScale)
+            : System.Windows.Media.Transform.Identity;
         PetImage.Source = Frame(_animations[name].Row, 0);
         _nextFrameAt = _clock.ElapsedMilliseconds + FrameDuration(name, 0);
     }
@@ -626,7 +631,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            PlayUserAction("waving");
+            PlayRandomClickAnimation();
         }
     }
 
@@ -677,6 +682,11 @@ public partial class MainWindow : Window
         CancelTransientPlay();
         Play(animation);
     }
+
+    private void PlayRandomClickAnimation() => PlayUserAction(SelectRandomClickAnimation(_random));
+
+    private string SelectRandomClickAnimation(Random random) =>
+        ClickAnimations[random.Next(ClickAnimations.Length)];
 
     private async void TossBall_Click(object sender, RoutedEventArgs e)
     {
