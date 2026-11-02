@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Assets\otter.ico</ApplicationIcon>
+    <AssemblyName>OtterDesktop.App</AssemblyName>
+    <RootNamespace>OtterDesktop</RootNamespace>
+    <Version>1.14.0</Version>
+    <Authors>OpenAI Codex</Authors>
+    <Product>Otter Desktop Companion</Product>
+    <Description>A lightweight animated desktop otter for Windows.</Description>
+    <Copyright>Created for personal use.</Copyright>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\otter-spritesheet-v2.png" />
+    <Resource Include="Assets\otter.ico" />
+    <Compile Remove="Launcher.cs" />
+  </ItemGroup>
+</Project>

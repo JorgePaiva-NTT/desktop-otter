@@ -1,0 +1,85 @@
+<Window x:Class="OtterDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Otter Desktop"
+        Width="192" Height="208"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        Topmost="True"
+        Focusable="False"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseLeftButtonUp="Window_MouseLeftButtonUp"
+        MouseMove="Window_MouseMove"
+        LostMouseCapture="Window_LostMouseCapture">
+    <Grid Background="Transparent">
+        <Ellipse Width="112"
+                 Height="16"
+                 Margin="0,0,0,1"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Bottom"
+                 Fill="#59000000"
+                 IsHitTestVisible="False">
+            <Ellipse.Effect>
+                <BlurEffect Radius="8" />
+            </Ellipse.Effect>
+        </Ellipse>
+
+        <Image x:Name="PetImage"
+               Stretch="Fill"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               SnapsToDevicePixels="True" />
+
+        <Grid.ContextMenu>
+            <ContextMenu x:Name="PetMenu" Opened="PetMenu_Opened">
+                <MenuItem Header="Wave hello" Click="Wave_Click" />
+                <MenuItem Header="Jump" Click="Jump_Click" />
+                <MenuItem Header="Wait for me" Click="Wait_Click" />
+                <MenuItem Header="Review something" Click="Review_Click" />
+                <Separator />
+                <MenuItem Header="Play together">
+                    <MenuItem Header="Toss a ball" Click="TossBall_Click" />
+                    <MenuItem Header="Give Otter a snack" Click="GiveSnack_Click" />
+                </MenuItem>
+                <MenuItem Header="Work companion">
+                    <MenuItem x:Name="CapturePrivacyMenuItem" Header="Keep out of screen sharing" IsCheckable="True" Click="CapturePrivacy_Click" />
+                    <MenuItem x:Name="MeetingNowMenuItem" Header="Meeting mode now" IsCheckable="True" Click="MeetingNow_Click" />
+                    <MenuItem x:Name="TeamsQuietMenuItem" Header="Quiet during Teams meetings" IsCheckable="True" Click="TeamsQuiet_Click" />
+                    <MenuItem x:Name="FullscreenQuietMenuItem" Header="Quiet during fullscreen / presentations" IsCheckable="True" Click="FullscreenQuiet_Click" />
+                    <MenuItem x:Name="TypingMenuItem" Header="React while I type" IsCheckable="True" Click="Typing_Click" />
+                    <Separator />
+                    <MenuItem x:Name="WorkStatusMenuItem" Header="Status: Available" IsEnabled="False" />
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="PauseMenuItem" Header="Pause animation" IsCheckable="True" Click="Pause_Click" />
+                <MenuItem x:Name="TopmostMenuItem" Header="Always on top" IsCheckable="True" Click="Topmost_Click" />
+                <MenuItem x:Name="StartupMenuItem" Header="Start with Windows" IsCheckable="True" Click="Startup_Click" />
+                <MenuItem x:Name="AnimationSpeedMenuItem" Header="Animation speed">
+                    <MenuItem Header="50% (slow)" Tag="0.5" IsCheckable="True" Click="AnimationSpeed_Click" />
+                    <MenuItem Header="75%" Tag="0.75" IsCheckable="True" Click="AnimationSpeed_Click" />
+                    <MenuItem Header="100% (normal)" Tag="1.0" IsCheckable="True" Click="AnimationSpeed_Click" />
+                    <MenuItem Header="125%" Tag="1.25" IsCheckable="True" Click="AnimationSpeed_Click" />
+                    <MenuItem Header="150%" Tag="1.5" IsCheckable="True" Click="AnimationSpeed_Click" />
+                    <MenuItem Header="200% (fast)" Tag="2.0" IsCheckable="True" Click="AnimationSpeed_Click" />
+                </MenuItem>
+                <MenuItem Header="Size">
+                    <MenuItem Header="75%" Tag="0.75" Click="Scale_Click" />
+                    <MenuItem Header="100%" Tag="1.0" Click="Scale_Click" />
+                    <MenuItem Header="125%" Tag="1.25" Click="Scale_Click" />
+                    <MenuItem Header="150%" Tag="1.5" Click="Scale_Click" />
+                </MenuItem>
+                <MenuItem Header="Reset position" Click="ResetPosition_Click" />
+                <Separator />
+                <MenuItem Header="About Otter" Click="About_Click" />
+                <MenuItem Header="Exit" Click="Exit_Click" />
+            </ContextMenu>
+        </Grid.ContextMenu>
+    </Grid>
+</Window>

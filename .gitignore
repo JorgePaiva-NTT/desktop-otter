@@ -55,3 +55,9 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Local publish output and generated previews
+/package/
+/.build-profile/
+/normalized-contact-sheet.png
+/normalized-validation.json
